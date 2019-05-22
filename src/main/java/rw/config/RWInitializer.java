@@ -14,12 +14,12 @@ import javax.servlet.Filter;
 public class RWInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
     protected Class<?>[] getRootConfigClasses() {
-        return new Class[]{WebConfig.class, HibernateConfig.class};
+        return new Class[]{WebConfig.class, HibernateConfig.class, WebSecurityConfig.class};
     }
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class[]{WebConfig.class};
+        return new Class[]{WebConfig.class, WebSecurityConfig.class};
     }
 
     @Override

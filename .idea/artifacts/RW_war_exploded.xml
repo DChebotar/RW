@@ -18,6 +18,9 @@
           <element id="library" level="project" name="Maven: org.springframework:spring-orm:5.1.1.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-jdbc:5.1.1.RELEASE" />
           <element id="library" level="project" name="Maven: org.springframework:spring-tx:5.1.1.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-core:5.1.1.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-config:5.1.1.RELEASE" />
+          <element id="library" level="project" name="Maven: org.springframework.security:spring-security-web:5.1.1.RELEASE" />
           <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-dbcp:9.0.10" />
           <element id="library" level="project" name="Maven: org.apache.tomcat:tomcat-juli:9.0.10" />
           <element id="library" level="project" name="Maven: com.oracle:ojdbc6:11.2.0.2.0" />
@@ -36,6 +39,7 @@
           <element id="library" level="project" name="Maven: org.jboss.spec.javax.interceptor:jboss-interceptors-api_1.1_spec:1.0.0.Beta1" />
           <element id="library" level="project" name="Maven: javax.annotation:jsr250-api:1.0" />
           <element id="library" level="project" name="Maven: javax.inject:javax.inject:1" />
+          <element id="library" level="project" name="Maven: jstl:jstl:1.2" />
         </element>
       </element>
       <element id="directory" name="META-INF">

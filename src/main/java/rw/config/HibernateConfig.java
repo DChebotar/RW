@@ -24,12 +24,8 @@ import java.util.Properties;
 @PropertySource(value = "classpath:db.properties")
 public class HibernateConfig {
 
-    private Environment environment;
-
     @Autowired
-    public void setEnvironment(Environment environment) {
-        this.environment = environment;
-    }
+    private Environment environment;
 
     private Properties gethibernateProperties(){
         Properties properties = new Properties();
