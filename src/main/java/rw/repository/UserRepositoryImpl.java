@@ -2,8 +2,8 @@ package rw.repository;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Repository;
 import rw.entity.User;
 
@@ -17,8 +17,10 @@ public class UserRepositoryImpl implements UserRepository {
     @Autowired
     private SessionFactory sessionFactory;
 
-    public UserDetails findByUsername(String login) {
+    public User findUserByLogin(String loginFromPage) {
         Session session = sessionFactory.getCurrentSession();
-        return session.get(User.class, login);
+        Query<User> q =  session.createQuery("from User where login = :pagelogin", User.class);
+        q.setParameter("pagelogin", loginFromPage);
+        return q.list().stream().findAny().orElse(null);
     }
 }

@@ -15,7 +15,7 @@
 
 <body>
 
-<form action="/login" method="post">
+<form action="/login/process" method="post">
   <div>
     <label>Login : </label>
     <div>
@@ -26,7 +26,7 @@
   <div>
     <label>Password : </label>
     <div>
-      <input type="text" name="password" placeholder="Password">
+      <input type="password" name="password" placeholder="Password">
     </div>
   </div>
 
