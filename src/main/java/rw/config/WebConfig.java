@@ -27,5 +27,4 @@ public class WebConfig {
         return viewResolver;
     }
 
-
 }

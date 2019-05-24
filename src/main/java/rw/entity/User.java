@@ -17,40 +17,35 @@ import java.util.Set;
 public class User implements UserDetails{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "USER_ID")
+    @Column(name = "USER_ID", nullable = false)
     private long id;
-    @Column(name = "USER_NAME")
+    @Column(name = "USER_NAME", nullable = false)
     private String name;
-    @Column(name = "USER_SURNAME")
+    @Column(name = "USER_SURNAME", nullable = false)
     private String surname;
-    @Column(name = "USER_PATRONYMIC")
+    @Column(name = "USER_PATRONYMIC", nullable = false)
     private String patronymic;
-    @Column(name = "USER_PS")
+    @Column(name = "USER_PS", nullable = false)
     private String passportSeries;
-    @Column(name = "USER_PN")
+    @Column(name = "USER_PN", nullable = false)
     private String passportNumber;
-    @Column(name = "USER_PID")
+    @Column(name = "USER_PID", nullable = false)
     private LocalDate passportIssueDate;
-    @Column(name = "USER_PIBy")
+    @Column(name = "USER_PIBY", nullable = false)
     private String passportIssueBy;
-
-
-
-    @Column(name = "USER_EMAIL")
+    @Column(name = "USER_EMAIL", nullable = false)
     private String email;
-    @Column(name = "USER_LOGIN")
+    @Column(name = "USER_LOGIN", nullable = false)
     private String login;
-    @Column(name = "USER_PASSWORD")
+    @Column(name = "USER_PASSWORD", nullable = false)
     private String password;
-
-
-
-    @Column(name = "USER_ISACTIVE")
+    @Column(name = "USER_ISACTIVE", nullable = false)
     private boolean active;
     @ElementCollection(targetClass = Role.class, fetch = FetchType.LAZY)
-    @CollectionTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID"))
+    @CollectionTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID", nullable = false))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
+
 
     public User() {
     }
@@ -128,7 +123,7 @@ public class User implements UserDetails{
     }
 
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return getRoles();
     }
 
     public String getPassword() {
@@ -182,6 +177,17 @@ public class User implements UserDetails{
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public Set<Seat> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(Set<Seat> tickets) {
+        this.tickets = tickets;
+    }
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Seat> tickets;
 
     @Override
     public boolean equals(Object o) {

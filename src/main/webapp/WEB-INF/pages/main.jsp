@@ -11,6 +11,6 @@
     <title>Main page</title>
 </head>
 <body>
-<H3>Main page</H3>
+<H3>Hello, ${user.name}, it's a MAIN page</H3>
 </body>
 </html>

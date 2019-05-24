@@ -15,6 +15,10 @@
 
 <body>
 
+<c:if test="${error != null}">
+    Invalid User Name or Password
+</c:if>
+
 <form action="/login/process" method="post">
   <div>
     <label>Login : </label>
@@ -32,6 +36,10 @@
 
   <div>
     <input type="submit" value="Sign In">
+  </div>
+
+  <div>
+    <a href="/registration">Registration</a>
   </div>
 
 </form>
