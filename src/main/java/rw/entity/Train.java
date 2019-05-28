@@ -2,7 +2,7 @@ package rw.entity;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by Chebotar_do on 24.05.2019.
@@ -23,7 +23,7 @@ public class Train {
     @Column(name = "TRAIN_DEP_TS", nullable = false)
     private Timestamp departureTime;
     @OneToMany(mappedBy = "train", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
-    private Set<TrainCar> trainCars;
+    private List<AbstractCarrage> carrages;
 
     public Train() {
     }
@@ -60,12 +60,38 @@ public class Train {
         this.departureTime = departureTime;
     }
 
-    public Set<TrainCar> getTrainCars() {
-        return trainCars;
+    public List<AbstractCarrage> getAbstractCarrages() {
+        return carrages;
     }
 
-    public void setTrainCars(Set<TrainCar> trainCars) {
-        this.trainCars = trainCars;
+    public void setAbstractCarrages(List<AbstractCarrage> carrages) {
+        this.carrages = carrages;
+    }
+
+    public Set<CarrageType> getTypesOfCarrages(){
+        Set<CarrageType> typesOfCarrages = new HashSet<CarrageType>();
+        for (AbstractCarrage carrage : this.getAbstractCarrages()){
+            typesOfCarrages.add(carrage.getCarrageType());
+        }
+        return typesOfCarrages;
+    }
+
+    public Map<CarrageType, Integer> getFreeTickets(){
+        Map<CarrageType, Integer> freeTickets = new HashMap<CarrageType, Integer>();
+        for (CarrageType carrageType : this.getTypesOfCarrages()){
+            freeTickets.put(carrageType, 0);
+        }
+        for (Map.Entry<CarrageType, Integer> entry : freeTickets.entrySet()) {
+            int count = 0;
+            for (AbstractCarrage carrage : this.getAbstractCarrages()) {
+                PassangerCarrage pCarrage = (PassangerCarrage) carrage;
+                if (entry.getKey().equals(carrage.getCarrageType())){
+                    count += pCarrage.getFreeSeats();
+                }
+            }
+            entry.setValue(count);
+        }
+        return freeTickets;
     }
 
     @Override
@@ -80,17 +106,13 @@ public class Train {
         if (arrivalTime != null ? !arrivalTime.equals(train.arrivalTime) : train.arrivalTime != null) return false;
         if (departureTime != null ? !departureTime.equals(train.departureTime) : train.departureTime != null)
             return false;
-        return !(trainCars != null ? !trainCars.equals(train.trainCars) : train.trainCars != null);
+        return !(carrages != null ? !carrages.equals(train.carrages) : train.carrages != null);
 
     }
 
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (route != null ? route.hashCode() : 0);
-        result = 31 * result + (arrivalTime != null ? arrivalTime.hashCode() : 0);
-        result = 31 * result + (departureTime != null ? departureTime.hashCode() : 0);
-        result = 31 * result + (trainCars != null ? trainCars.hashCode() : 0);
         return result;
     }
 }

@@ -75,9 +75,11 @@ public class Route {
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (departureStation != null ? departureStation.hashCode() : 0);
-        result = 31 * result + (arrivalStation != null ? arrivalStation.hashCode() : 0);
-        result = 31 * result + (trains != null ? trains.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return arrivalStation + " - " + departureStation;
     }
 }

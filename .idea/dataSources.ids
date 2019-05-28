@@ -9,21 +9,76 @@
     <schema name="CHEBOTAR_DO" catalog=""/>
     <schema name="SYS" catalog=""/>
     <schema name="SYSTEM" catalog=""/>
+    <table name="CARRAGE" schema="CHEBOTAR_DO" catalog="" type="TABLE">
+      <column name="CARRAGE_TYPE" sqlType="VARCHAR2" precision="31" scale="0" nullable="false" jdbcType="12"/>
+      <column name="CARRAGE_ID" sqlType="NUMBER" precision="19" scale="0" nullable="false" jdbcType="3"/>
+      <column name="NUMBER_OF_SEATS" sqlType="NUMBER" precision="10" scale="0" nullable="false" jdbcType="3"/>
+      <column name="TRAIN_ID" sqlType="NUMBER" precision="19" scale="0" nullable="false" jdbcType="3"/>
+      <primary-key name="SYS_C00208728" columns="CARRAGE_ID"/>
+      <foreign-key name="FKARCFQJWG9UN4W4HQKNOOLHRVI" columns="TRAIN_ID" ref-table="TRAINS" ref-schema="CHEBOTAR_DO" ref-catalog="" ref-columns="TRAIN_ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <exported-key name="FKGHU6V1GL7J86XQDY8VI2EFITN" table="PASSANGER_CARRAGE" schema="CHEBOTAR_DO" catalog="" columns="ID"/>
+      <exported-key name="FKKP3LYLFDN1ONWH464BDX5CP3V" table="SEATS" schema="CHEBOTAR_DO" catalog="" columns="CARRAGE_ID"/>
+    </table>
     <table name="HIBERNATE_SEQUENCE" schema="CHEBOTAR_DO" catalog="" type="SEQUENCE"/>
+    <table name="HT_CARRAGE" schema="CHEBOTAR_DO" catalog="" type="TABLE">
+      <column name="CARRAGE_ID" sqlType="NUMBER" precision="19" scale="0" nullable="false" jdbcType="3"/>
+    </table>
+    <table name="PASSANGER_CARRAGE" schema="CHEBOTAR_DO" catalog="" type="TABLE">
+      <column name="ID" sqlType="NUMBER" precision="19" scale="0" nullable="false" jdbcType="3"/>
+      <primary-key name="SYS_C00208730" columns="ID"/>
+      <foreign-key name="FKGHU6V1GL7J86XQDY8VI2EFITN" columns="ID" ref-table="CARRAGE" ref-schema="CHEBOTAR_DO" ref-catalog="" ref-columns="CARRAGE_ID" update-rule="0" delete-rule="1" deferrability="2"/>
+    </table>
+    <table name="ROUTES" schema="CHEBOTAR_DO" catalog="" type="TABLE">
+      <column name="ROUT_ID" sqlType="NUMBER" precision="19" scale="0" nullable="false" jdbcType="3"/>
+      <column name="ARR_STATION" sqlType="VARCHAR2" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="DEP_STATION" sqlType="VARCHAR2" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="SYS_C00208734" columns="ROUT_ID"/>
+      <exported-key name="FKEMLMM120W5QB0XJTBR8VSPBGO" table="TRAINS" schema="CHEBOTAR_DO" catalog="" columns="ROUTE_ID"/>
+    </table>
+    <table name="SEATS" schema="CHEBOTAR_DO" catalog="" type="TABLE">
+      <column name="SEAT_ID" sqlType="NUMBER" precision="19" scale="0" nullable="false" jdbcType="3"/>
+      <column name="SEAT_NUMBER" sqlType="VARCHAR2" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="SEAT_STATUS" sqlType="NUMBER" precision="1" scale="0" nullable="false" jdbcType="3"/>
+      <column name="CARRAGE_ID" sqlType="NUMBER" precision="19" scale="0" nullable="false" jdbcType="3"/>
+      <column name="TICKET_ID" sqlType="NUMBER" precision="19" scale="0" nullable="true" jdbcType="3"/>
+      <primary-key name="SYS_C00208739" columns="SEAT_ID"/>
+      <foreign-key name="FKKP3LYLFDN1ONWH464BDX5CP3V" columns="CARRAGE_ID" ref-table="CARRAGE" ref-schema="CHEBOTAR_DO" ref-catalog="" ref-columns="CARRAGE_ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <foreign-key name="FKBFT81L6KBTN46NKT5921U49Q7" columns="TICKET_ID" ref-table="TICKET" ref-schema="CHEBOTAR_DO" ref-catalog="" ref-columns="TICKET_ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <exported-key name="FKD1L0W006A9W8MEL1K6QWWM9FW" table="TICKET" schema="CHEBOTAR_DO" catalog="" columns="SEAT_ID"/>
+    </table>
+    <table name="TICKET" schema="CHEBOTAR_DO" catalog="" type="TABLE">
+      <column name="TICKET_ID" sqlType="NUMBER" precision="19" scale="0" nullable="false" jdbcType="3"/>
+      <column name="SEAT_ID" sqlType="NUMBER" precision="19" scale="0" nullable="false" jdbcType="3"/>
+      <column name="USER_ID" sqlType="NUMBER" precision="19" scale="0" nullable="false" jdbcType="3"/>
+      <primary-key name="SYS_C00208743" columns="TICKET_ID"/>
+      <foreign-key name="FKD1L0W006A9W8MEL1K6QWWM9FW" columns="SEAT_ID" ref-table="SEATS" ref-schema="CHEBOTAR_DO" ref-catalog="" ref-columns="SEAT_ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <foreign-key name="FKO10AKG6CX6EVD1X67IMP8HXE4" columns="USER_ID" ref-table="USERS" ref-schema="CHEBOTAR_DO" ref-catalog="" ref-columns="USER_ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <exported-key name="FKBFT81L6KBTN46NKT5921U49Q7" table="SEATS" schema="CHEBOTAR_DO" catalog="" columns="TICKET_ID"/>
+    </table>
+    <table name="TRAINS" schema="CHEBOTAR_DO" catalog="" type="TABLE">
+      <column name="TRAIN_ID" sqlType="NUMBER" precision="19" scale="0" nullable="false" jdbcType="3"/>
+      <column name="TRAIN_ARR_TS" sqlType="TIMESTAMP(6)" precision="11" scale="6" nullable="false" jdbcType="93"/>
+      <column name="TRAIN_DEP_TS" sqlType="TIMESTAMP(6)" precision="11" scale="6" nullable="false" jdbcType="93"/>
+      <column name="ROUTE_ID" sqlType="NUMBER" precision="19" scale="0" nullable="false" jdbcType="3"/>
+      <primary-key name="SYS_C00208748" columns="TRAIN_ID"/>
+      <foreign-key name="FKEMLMM120W5QB0XJTBR8VSPBGO" columns="ROUTE_ID" ref-table="ROUTES" ref-schema="CHEBOTAR_DO" ref-catalog="" ref-columns="ROUT_ID" update-rule="0" delete-rule="1" deferrability="2"/>
+      <exported-key name="FKARCFQJWG9UN4W4HQKNOOLHRVI" table="CARRAGE" schema="CHEBOTAR_DO" catalog="" columns="TRAIN_ID"/>
+    </table>
     <table name="USERS" schema="CHEBOTAR_DO" catalog="" type="TABLE">
       <column name="USER_ID" sqlType="NUMBER" precision="19" scale="0" nullable="false" jdbcType="3"/>
-      <column name="USER_ISACTIVE" sqlType="NUMBER" precision="1" scale="0" nullable="true" jdbcType="3"/>
-      <column name="USER_EMAIL" sqlType="VARCHAR2" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="USER_LOGIN" sqlType="VARCHAR2" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="USER_NAME" sqlType="VARCHAR2" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="USER_PIBY" sqlType="VARCHAR2" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="USER_PID" sqlType="DATE" precision="7" scale="0" nullable="true" jdbcType="93"/>
-      <column name="USER_PN" sqlType="VARCHAR2" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="USER_PS" sqlType="VARCHAR2" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="USER_PASSWORD" sqlType="VARCHAR2" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="USER_PATRONYMIC" sqlType="VARCHAR2" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <column name="USER_SURNAME" sqlType="VARCHAR2" precision="255" scale="0" nullable="true" jdbcType="12"/>
-      <primary-key name="SYS_C00208334" columns="USER_ID"/>
+      <column name="USER_ISACTIVE" sqlType="NUMBER" precision="1" scale="0" nullable="false" jdbcType="3"/>
+      <column name="USER_EMAIL" sqlType="VARCHAR2" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="USER_LOGIN" sqlType="VARCHAR2" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="USER_NAME" sqlType="VARCHAR2" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="USER_PIBY" sqlType="VARCHAR2" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="USER_PID" sqlType="DATE" precision="7" scale="0" nullable="false" jdbcType="93"/>
+      <column name="USER_PN" sqlType="VARCHAR2" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="USER_PS" sqlType="VARCHAR2" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="USER_PASSWORD" sqlType="VARCHAR2" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="USER_PATRONYMIC" sqlType="VARCHAR2" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="USER_SURNAME" sqlType="VARCHAR2" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="SYS_C00208856" columns="USER_ID"/>
+      <exported-key name="FKO10AKG6CX6EVD1X67IMP8HXE4" table="TICKET" schema="CHEBOTAR_DO" catalog="" columns="USER_ID"/>
       <exported-key name="FKR4WTG8ONIRVRQS1AILJJJSX0Y" table="USER_ROLE" schema="CHEBOTAR_DO" catalog="" columns="USER_ID"/>
     </table>
     <table name="USER_ROLE" schema="CHEBOTAR_DO" catalog="" type="TABLE">

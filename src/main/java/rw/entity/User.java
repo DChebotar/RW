@@ -45,6 +45,8 @@ public class User implements UserDetails{
     @CollectionTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID", nullable = false))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Set<Ticket> tickets;
 
 
     public User() {
@@ -178,16 +180,13 @@ public class User implements UserDetails{
         this.email = email;
     }
 
-    public Set<Seat> getTickets() {
+    public Set<Ticket> getTickets() {
         return tickets;
     }
 
-    public void setTickets(Set<Seat> tickets) {
+    public void setTickets(Set<Ticket> tickets) {
         this.tickets = tickets;
     }
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Seat> tickets;
 
     @Override
     public boolean equals(Object o) {
@@ -217,16 +216,6 @@ public class User implements UserDetails{
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (surname != null ? surname.hashCode() : 0);
-        result = 31 * result + (patronymic != null ? patronymic.hashCode() : 0);
-        result = 31 * result + (passportSeries != null ? passportSeries.hashCode() : 0);
-        result = 31 * result + (passportNumber != null ? passportNumber.hashCode() : 0);
-        result = 31 * result + (passportIssueDate != null ? passportIssueDate.hashCode() : 0);
-        result = 31 * result + (passportIssueBy != null ? passportIssueBy.hashCode() : 0);
-        result = 31 * result + (login != null ? login.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (roles != null ? roles.hashCode() : 0);
         return result;
     }
 

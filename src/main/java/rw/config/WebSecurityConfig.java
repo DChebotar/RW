@@ -37,7 +37,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
         http
                 .authorizeRequests()
                     .antMatchers("/admin").hasAnyAuthority("ADMIN")
-                    .antMatchers("/registration", "/login").permitAll()
+                    .antMatchers("/registration", "/login").anonymous()
                     .anyRequest().authenticated()
                 .and()
                     .formLogin()
@@ -45,10 +45,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
                     .loginProcessingUrl("/login/process")
                     .usernameParameter("login")
                     .failureUrl("/login?error=true")
-                    .permitAll()
                 .and()
                     .logout()
                     .permitAll()
+                .and()
+                    .exceptionHandling()
+                    .accessDeniedPage("/main")
                 .and()
                     .csrf().disable();
     }

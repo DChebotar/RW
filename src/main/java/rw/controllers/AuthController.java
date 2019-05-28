@@ -22,7 +22,7 @@ public class AuthController {
     @RequestMapping(method = RequestMethod.GET)
     public String login(@RequestParam(name = "error", required = false) boolean error, Model model){
         if (error){
-            model.addAttribute("error", true);
+            model.addAttribute("msgerror", "Invalid User Name or Password");
         }
         return "login";
     }

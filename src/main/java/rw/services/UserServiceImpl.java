@@ -14,7 +14,9 @@ import rw.repository.UserRepository;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Chebotar_do on 22.05.2019.
@@ -46,7 +48,22 @@ public class UserServiceImpl implements UserDetailsService, UserService {
 
     public boolean createUser(String login, String password, String name, String patronymic, String surname,
                               String passportSeries, String passportNumber, LocalDate passportIssueDate, String passportIssueBy, String email) {
-        return userRepository.createUser(login, password, name, patronymic, surname, passportSeries, passportNumber, passportIssueDate, passportIssueBy, email);
+        User user = new User();
+        user.setLogin(login);
+        user.setPassword(passwordEncoder.encode(password));
+        user.setName(name);
+        user.setPatronymic(patronymic);
+        user.setSurname(surname);
+        user.setPassportSeries(passportSeries);
+        user.setPassportNumber(passportNumber);
+        user.setPassportIssueDate(passportIssueDate);
+        user.setPassportIssueBy(passportIssueBy);
+        user.setEmail(email);
+        user.setActive(true);
+        Set<Role> roles = new HashSet<Role>();
+        roles.add(Role.USER);
+        user.setRoles(roles);
+        return userRepository.saveUser(user);
     }
 
 

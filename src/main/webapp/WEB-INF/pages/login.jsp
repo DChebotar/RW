@@ -15,8 +15,8 @@
 
 <body>
 
-<c:if test="${error != null}">
-    Invalid User Name or Password
+<c:if test="${msgerror != null}">
+    ${msgerror}
 </c:if>
 
 <form action="/login/process" method="post">

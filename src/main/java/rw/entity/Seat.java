@@ -18,16 +18,16 @@ public class Seat {
     @Column(name = "SEAT_NUMBER", nullable = false)
     private String number;
     @ManyToOne
-    @JoinColumn(name = "TRAIN_CAR_ID", nullable = false)
-    private TrainCar trainCar;
+    @JoinColumn(name = "CARRAGE_ID", nullable = false)
+    private AbstractCarrage carrage;
     @ManyToOne
-    @JoinColumn(name = "USER_ID", nullable = true)
-    private User user;
+    @JoinColumn(name = "TICKET_ID", nullable = true)
+    private Ticket ticket;
 
-    public Seat(boolean status, String number, TrainCar trainCar) {
+    public Seat(boolean status, String number, PassangerCarrage trainCar) {
         this.status = status;
         this.number = number;
-        this.trainCar = trainCar;
+        this.carrage = trainCar;
     }
 
     public Seat() {
@@ -57,12 +57,12 @@ public class Seat {
         this.number = number;
     }
 
-    public TrainCar getTrainCar() {
-        return trainCar;
+    public AbstractCarrage getCarrage() {
+        return carrage;
     }
 
-    public void setTrainCar(TrainCar trainCar) {
-        this.trainCar = trainCar;
+    public void setCarrage(PassangerCarrage carrage) {
+        this.carrage = carrage;
     }
 
     @Override
@@ -75,16 +75,14 @@ public class Seat {
         if (id != seat.id) return false;
         if (status != seat.status) return false;
         if (number != null ? !number.equals(seat.number) : seat.number != null) return false;
-        return !(trainCar != null ? !trainCar.equals(seat.trainCar) : seat.trainCar != null);
+        if (carrage != null ? !carrage.equals(seat.carrage) : seat.carrage != null) return false;
+        return !(ticket != null ? !ticket.equals(seat.ticket) : seat.ticket != null);
 
     }
 
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (status ? 1 : 0);
-        result = 31 * result + (number != null ? number.hashCode() : 0);
-        result = 31 * result + (trainCar != null ? trainCar.hashCode() : 0);
         return result;
     }
 }
