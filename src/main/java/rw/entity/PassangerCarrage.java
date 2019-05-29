@@ -9,17 +9,18 @@ import java.util.Set;
  */
 
 @Entity
-@DiscriminatorValue("PAS_CARRAGE")
-@SecondaryTable(name = "PASSANGER_CARRAGE", pkJoinColumns = @PrimaryKeyJoinColumn(name = "ID"))
+@DiscriminatorValue("PASS")
 public class PassangerCarrage extends AbstractCarrage {
 
     @Column(name = "NUMBER_OF_SEATS", nullable = false)
     private int numberOfSeats;
 
-    @OneToMany(mappedBy = "carrage", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "carrage", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Seat> seats;
 
-    public PassangerCarrage(){}
+    public PassangerCarrage(){
+        super();
+    }
 
     public PassangerCarrage(CarrageType carrageType) {
         super(carrageType);

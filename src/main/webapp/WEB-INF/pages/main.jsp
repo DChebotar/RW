@@ -34,13 +34,15 @@
         <th>Tickets available</th>
         <th></th>
     </tr>
-    <c:forEach var="train" items="${trains}">
+    <c:forEach var="train" items="${trains}" varStatus="count">
         <tr>
             <th>${train.route}</th>
             <th>${train.arrivalTime}</th>
             <th>${train.departureTime}</th>
-            <th><c:forEach var="type" items="${typesOfCarrages}">${type}</c:forEach></th>
-            <th>${train.getFreeTickets()}</th>
+            <th><c:forEach var="type" items="${types}">
+                <div>${type}</div>
+            </c:forEach></th>
+
             <th><a href="/buy/${train.id}">Buy ticket</a></th>
         </tr>
     </c:forEach>

@@ -1,6 +1,7 @@
 package rw.services;
 
 import rw.entity.AbstractCarrage;
+import rw.entity.PassangerCarrage;
 import rw.entity.Train;
 
 import java.util.List;
@@ -12,4 +13,6 @@ import java.util.Map;
 public interface CarrageService {
 
     List<AbstractCarrage> getCarragesByFormData(Map<String, String> numberOfCarrages, Train train);
+
+    List<PassangerCarrage> getCarragesByTrain(Train train);
 }

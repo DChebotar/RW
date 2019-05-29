@@ -30,7 +30,6 @@ public class RouteServiceImpl implements RouteService {
         Set<Train> trains = new HashSet<Train>();
         trains.add(train);
         route.setTrains(trains);
-        //routeRepository.saveRoute(route);
 
         return route;
     }

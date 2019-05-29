@@ -7,17 +7,17 @@ import javax.persistence.*;
  */
 
 @Entity
-@Table(name = "CARRAGE")
+@Table(name = "CARRAGES")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "CARRAGE_TYPE")
+@DiscriminatorColumn(name = "BD_TYPE", discriminatorType = DiscriminatorType.STRING)
 public class AbstractCarrage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "CARRAGE_ID", nullable = false)
     private long id;
-    @Enumerated(EnumType.ORDINAL)
-    @Column(name = "CARRAGE_TYPE", nullable = false, insertable = false, updatable = false)
+    @Enumerated
+    @Column(name = "CARRAGE_TYPE", columnDefinition = "smallint")
     private CarrageType carrageType;
     @ManyToOne
     @JoinColumn(name = "TRAIN_ID", nullable = false)

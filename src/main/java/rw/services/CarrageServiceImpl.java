@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import rw.entity.AbstractCarrage;
 import rw.entity.CarrageType;
+import rw.entity.PassangerCarrage;
 import rw.entity.Train;
 import rw.repository.CarrageRepository;
 import rw.util.CarrageFactory;
@@ -42,5 +43,9 @@ public class CarrageServiceImpl implements CarrageService {
         }
 
         return carrages;
+    }
+
+    public List<PassangerCarrage> getCarragesByTrain(Train train) {
+        return carrageRepository.getCarragesByTrain(train);
     }
 }

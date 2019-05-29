@@ -20,8 +20,7 @@ public class Seat {
     @ManyToOne
     @JoinColumn(name = "CARRAGE_ID", nullable = false)
     private AbstractCarrage carrage;
-    @ManyToOne
-    @JoinColumn(name = "TICKET_ID", nullable = true)
+    @OneToOne(mappedBy = "seat")
     private Ticket ticket;
 
     public Seat(boolean status, String number, PassangerCarrage trainCar) {

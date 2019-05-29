@@ -12,13 +12,13 @@ public class Route {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "ROUT_ID", nullable = false)
+    @Column(name = "ROUTE_ID", nullable = false)
     private long id;
     @Column(name = "DEP_STATION", nullable = false)
     private String departureStation;
     @Column(name = "ARR_STATION", nullable = false)
     private String arrivalStation;
-    @OneToMany(mappedBy = "route", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "route", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)
     private Set<Train> trains;
 
     public Route() {

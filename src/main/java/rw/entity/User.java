@@ -41,9 +41,9 @@ public class User implements UserDetails{
     private String password;
     @Column(name = "USER_ISACTIVE", nullable = false)
     private boolean active;
-    @ElementCollection(targetClass = Role.class, fetch = FetchType.LAZY)
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "USER_ROLE", joinColumns = @JoinColumn(name = "USER_ID", nullable = false))
-    @Enumerated(EnumType.STRING)
+    @Enumerated(value = EnumType.STRING)
     private Set<Role> roles;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Ticket> tickets;

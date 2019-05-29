@@ -22,7 +22,7 @@ public class Train {
     private Timestamp arrivalTime;
     @Column(name = "TRAIN_DEP_TS", nullable = false)
     private Timestamp departureTime;
-    @OneToMany(mappedBy = "train", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToMany(mappedBy = "train", cascade = CascadeType.PERSIST, fetch = FetchType.LAZY, orphanRemoval = true)
     private List<AbstractCarrage> carrages;
 
     public Train() {
@@ -66,32 +66,6 @@ public class Train {
 
     public void setAbstractCarrages(List<AbstractCarrage> carrages) {
         this.carrages = carrages;
-    }
-
-    public Set<CarrageType> getTypesOfCarrages(){
-        Set<CarrageType> typesOfCarrages = new HashSet<CarrageType>();
-        for (AbstractCarrage carrage : this.getAbstractCarrages()){
-            typesOfCarrages.add(carrage.getCarrageType());
-        }
-        return typesOfCarrages;
-    }
-
-    public Map<CarrageType, Integer> getFreeTickets(){
-        Map<CarrageType, Integer> freeTickets = new HashMap<CarrageType, Integer>();
-        for (CarrageType carrageType : this.getTypesOfCarrages()){
-            freeTickets.put(carrageType, 0);
-        }
-        for (Map.Entry<CarrageType, Integer> entry : freeTickets.entrySet()) {
-            int count = 0;
-            for (AbstractCarrage carrage : this.getAbstractCarrages()) {
-                PassangerCarrage pCarrage = (PassangerCarrage) carrage;
-                if (entry.getKey().equals(carrage.getCarrageType())){
-                    count += pCarrage.getFreeSeats();
-                }
-            }
-            entry.setValue(count);
-        }
-        return freeTickets;
     }
 
     @Override

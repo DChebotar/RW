@@ -17,8 +17,8 @@ public class Ticket {
     @ManyToOne
     @JoinColumn(name = "USER_ID", nullable = false)
     private User user;
-    @ManyToOne
-    @JoinColumn(name = "SEAT_ID", nullable = false)
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "SEAT_ID", nullable = false, referencedColumnName = "SEAT_ID")
     private Seat seat;
 
     public Ticket() {
