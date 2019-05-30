@@ -20,4 +20,6 @@ public interface TrainService {
     Map<CarrageType, Integer> getFreeTickets(Train train);
 
     Set<CarrageType> getTypesOfCarrages(Train train);
+
+    Train getTrainById(long trainid);
 }

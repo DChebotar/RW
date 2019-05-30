@@ -35,7 +35,8 @@ public class CarrageRepositoryImpl implements CarrageRepository {
 
     public List<PassangerCarrage> getCarragesByTrain(Train train) {
         Session session = sessionFactory.getCurrentSession();
-        SQLQuery query = session.createSQLQuery("SELECT CARRAGE_ID, CARRAGE_TYPE, NUMBER_OF_SEATS, TRAIN_ID FROM CARRAGES");
+        SQLQuery query = session.createSQLQuery("SELECT CARRAGE_ID, CARRAGE_TYPE, NUMBER_OF_SEATS, TRAIN_ID FROM CARRAGES WHERE TRAIN_ID = :train");
+        query.setParameter("train", train.getId());
         query.addEntity(PassangerCarrage.class);
         //Query<PassangerCarrage> query = session.createQuery("FROM AbstractCarrage c WHERE c.train.id = :train", PassangerCarrage.class);
         //query.setParameter("train", train.getId());

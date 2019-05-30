@@ -11,13 +11,59 @@
 <html>
 <head>
     <title>Main page</title>
+    <meta charset="utf-8"/>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/jquery-3.4.1.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/script.js"></script>
 </head>
 <body>
+
+<script>
+    function getTypesOfCarrages(train_id) {
+
+        $.ajax({
+
+            dataType: 'JSON',
+            type: 'POST',
+            url: '/main/types',
+            data: {'trainid': train_id},
+            success: function (types) {
+                console.log(types);
+                for (var i = 0; i < types.length; i++) {
+                    $('#types').append("<p>" + types[i] + "</p>")
+                }
+            }
+        });
+        return false;
+    }
+    ;
+
+    function getFreeTickets(train_id) {
+
+        $.ajax({
+
+            dataType: 'JSON',
+            type: 'POST',
+            url: '/main/freetickets',
+            data: {'trainid': train_id},
+            success: function (tickets) {
+                console.log(tickets);
+                for (var i = 0; i < tickets.length; i++) {
+                    $('#tickets').append("<p>" + tickets[i] + "</p>")
+                }
+            }
+        });
+        return false;
+    }
+    ;
+
+</script>
+
 <h3>Hello, ${user.name}</h3>
 
 <h4><a href="/logout">Logout</a></h4>
 
-<security:authorize access="hasAnyAuthority('ADMIN')" var="isAdmin"><h4><a href="/admin">Go to administration</a></h4></security:authorize>
+<security:authorize access="hasAnyAuthority('ADMIN')" var="isAdmin"><h4><a href="/admin">Go to administration</a>
+</h4></security:authorize>
 
 
 <c:if test="${errormsg != null}">
@@ -39,10 +85,10 @@
             <th>${train.route}</th>
             <th>${train.arrivalTime}</th>
             <th>${train.departureTime}</th>
-            <th><c:forEach var="type" items="${types}">
-                <div>${type}</div>
-            </c:forEach></th>
-
+            <script>getTypesOfCarrages(${train.id})</script>
+            <th id="types"></th>
+            <script>getFreeTickets(${train.id})</script>
+            <th id="tickets"></th>
             <th><a href="/buy/${train.id}">Buy ticket</a></th>
         </tr>
     </c:forEach>

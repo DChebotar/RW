@@ -65,7 +65,7 @@ public class PassangerCarrage extends AbstractCarrage {
     public int getFreeSeats(){
         int count = 0;
         for (Seat seat : this.getSeats()){
-            if (seat.isStatus() == false){
+            if (seat.isStatus() == true){
                 count++;
             }
         }

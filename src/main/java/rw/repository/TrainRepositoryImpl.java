@@ -29,4 +29,11 @@ public class TrainRepositoryImpl implements TrainRepository {
         Session session = sessionFactory.getCurrentSession();
         session.persist(train);
     }
+
+    public Train getTrainById(long trainid) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<Train> query = session.createQuery("FROM Train WHERE id = :trainid", Train.class);
+        query.setParameter("trainid", trainid);
+        return query.list().stream().findAny().orElse(null);
+    }
 }

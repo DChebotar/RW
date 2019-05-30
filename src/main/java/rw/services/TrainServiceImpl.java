@@ -59,6 +59,10 @@ public class TrainServiceImpl implements TrainService {
         return typesOfCarrages;
     }
 
+    public Train getTrainById(long trainid) {
+        return trainRepository.getTrainById(trainid);
+    }
+
     public Map<CarrageType, Integer> getFreeTickets(Train train){
         Map<CarrageType, Integer> freeTickets = new HashMap<CarrageType, Integer>();
         for (CarrageType carrageType : getTypesOfCarrages(train)){

@@ -12,4 +12,6 @@ public interface TrainRepository {
     List<Train> getAllTrains();
 
     void saveTrain(Train train);
+
+    Train getTrainById(long trainid);
 }
