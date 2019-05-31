@@ -66,5 +66,7 @@ public class UserServiceImpl implements UserDetailsService, UserService {
         return userRepository.saveUser(user);
     }
 
-
+    public User getUserByLogin(String login) {
+        return userRepository.findUserByLogin(login);
+    }
 }

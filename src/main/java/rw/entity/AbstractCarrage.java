@@ -19,6 +19,8 @@ public class AbstractCarrage {
     @Enumerated
     @Column(name = "CARRAGE_TYPE", columnDefinition = "smallint")
     private CarrageType carrageType;
+    @Column(name = "NUMBER_OF_CARRAGE")
+    private int carrageNumber;
     @ManyToOne
     @JoinColumn(name = "TRAIN_ID", nullable = false)
     private Train train;
@@ -52,6 +54,14 @@ public class AbstractCarrage {
 
     public void setTrain(Train train) {
         this.train = train;
+    }
+
+    public int getCarrageNumber() {
+        return carrageNumber;
+    }
+
+    public void setCarrageNumber(int carrageNumber) {
+        this.carrageNumber = carrageNumber;
     }
 
     @Override

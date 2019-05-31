@@ -1,6 +1,8 @@
 package rw.repository;
 
+import rw.entity.Ticket;
 import rw.entity.Train;
+import rw.entity.User;
 
 import java.util.List;
 
@@ -14,4 +16,12 @@ public interface TrainRepository {
     void saveTrain(Train train);
 
     Train getTrainById(long trainid);
+
+    void saveTicket(Ticket ticket);
+
+    List<Ticket> getTicketsByUser(User user);
+
+    Ticket getTicketById(long id);
+
+    void deleteTicket(long id);
 }

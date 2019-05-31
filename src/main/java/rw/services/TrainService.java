@@ -1,7 +1,9 @@
 package rw.services;
 
 import rw.entity.CarrageType;
+import rw.entity.Ticket;
 import rw.entity.Train;
+import rw.entity.User;
 
 import java.sql.Timestamp;
 import java.util.List;
@@ -22,4 +24,11 @@ public interface TrainService {
     Set<CarrageType> getTypesOfCarrages(Train train);
 
     Train getTrainById(long trainid);
+
+    void buyTicket(long id, int numberOfCarrage, String numberOfSeat, User user);
+
+
+    List<Ticket> getTicketsByUser(User user);
+
+    void returnTicketById(long id);
 }

@@ -3,12 +3,11 @@ package rw.services;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import rw.entity.AbstractCarrage;
-import rw.entity.CarrageType;
-import rw.entity.PassangerCarrage;
-import rw.entity.Train;
+import rw.entity.*;
+import rw.repository.CarrageRepository;
 import rw.repository.RouteRepository;
 import rw.repository.TrainRepository;
+import rw.repository.UserRepository;
 
 import java.sql.Timestamp;
 import java.util.*;
@@ -32,6 +31,12 @@ public class TrainServiceImpl implements TrainService {
 
     @Autowired
     private RouteRepository routeRepository;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    CarrageRepository carrageRepository;
 
     public List<Train> getAllTrains() {
         return trainRepository.getAllTrains();
@@ -61,6 +66,32 @@ public class TrainServiceImpl implements TrainService {
 
     public Train getTrainById(long trainid) {
         return trainRepository.getTrainById(trainid);
+    }
+
+
+    public void buyTicket(long id, int numberOfCarrage, String numberOfSeat, User user) {
+        Ticket ticket = new Ticket();
+        PassangerCarrage carrage = carrageService.getCarrageByTrainAndCarrageNumber(getTrainById(id), numberOfCarrage);
+        Seat seat = carrageService.getSeatByCarrageAndNumber(carrage, numberOfSeat);
+        ticket.setSeat(seat);
+        seat.setStatus(false);
+        ticket.setUser(user);
+        trainRepository.saveTicket(ticket);
+    }
+
+    public List<Ticket> getTicketsByUser(User user) {
+        return trainRepository.getTicketsByUser(user);
+    }
+
+    public void returnTicketById(long id) {
+        Ticket ticket = trainRepository.getTicketById(id);
+        ticket.getUser().getTickets().remove(ticket);
+        userRepository.saveUser(ticket.getUser());
+
+        ticket.getSeat().setStatus(true);
+        carrageRepository.saveSeat(ticket.getSeat());
+        trainRepository.deleteTicket(id);
+
     }
 
     public Map<CarrageType, Integer> getFreeTickets(Train train){
